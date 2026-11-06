@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import android.widget.Toast
 import com.bluemimicry.launcher.LauncherViewModel
 import com.bluemimicry.launcher.data.*
+import com.bluemimicry.launcher.data.DisplayMode
 import com.bluemimicry.launcher.gestures.GestureAction
 import com.bluemimicry.launcher.system.SystemActions
 import com.bluemimicry.launcher.ui.theme.LocalPalette
