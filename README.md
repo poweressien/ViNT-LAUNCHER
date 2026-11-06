@@ -26,5 +26,3 @@ minSdk 28 (Android 9), targetSdk 35.
 - **Edge swipes**: down from top / up from bottom (assignable). Shake and tilt also assignable.
 
 Docs: `ARCHITECTURE.md`, `FEATURES.md`, `IMPLEMENTATION_STATUS.md`, `PERMISSIONS.md`, `DEVICE_COMPATIBILITY.md`, `DEVELOPMENT_ROADMAP.md`, `TESTING.md`.
-# ViNT-LAUNCHER
-# ViNT-LAUNCHER
