@@ -38,7 +38,13 @@ jobs:
           # Print only what matters: compiler errors (e: ...) and AAPT/KSP errors, so they fit in one copy-paste.
           if [ $code -ne 0 ]; then
             echo "=============== COMPILER ERRORS ==============="
-            grep -E "^e: |error: |AAPT: error|\[ksp\]" build.log | sed 's#file:///home/runner/work/[^/]*/[^/]*/##' | head -150
+            grep -E "^e: " build.log | sed 's#file:///home/runner/work/[^/]*/[^/]*/##' | head -150
+            echo "=============== WHAT WENT WRONG ==============="
+            awk '/^FAILURE: Build failed/{f=1} f{print} /^BUILD FAILED/{f=0}' build.log | head -80
+            echo "=============== OTHER ERROR LINES ==============="
+            grep -iE "error|exception|failed|cannot|unresolved" build.log | grep -v "^\s*at " | sort -u | head -60
+            echo "=============== LAST 60 LINES ==============="
+            tail -n 60 build.log
             echo "=============== END ERRORS ==============="
           fi
           exit $code
