@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Blue Mimicry</string>
+    <string name="lock_service_desc">Lets Blue Mimicry lock your screen when you use the Lock gesture. It does not read or record anything on screen.</string>
+    <string name="sms_name">Blue Mimicry Messages</string>
+</resources>
