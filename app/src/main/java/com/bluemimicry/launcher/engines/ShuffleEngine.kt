@@ -61,8 +61,8 @@ fun ShuffleEngine(vm: LauncherViewModel, modifier: Modifier = Modifier) {
         Box(
             Modifier.fillMaxSize().androidScroll { d -> scroll = (scroll - d).coerceIn(0f, with(density) { scrollMax.toPx() }) },
         ) {
-            order.forEachIndexed { slot, k ->
-                val app = byKey[k] ?: return@forEachIndexed
+            for ((slot, k) in order.withIndex()) {
+                val app = byKey[k] ?: continue
                 key(k) {
                     val target = IntOffset((slot % cols) * cellWPx, (slot / cols) * cellHPx - scroll.toInt())
                     val anim: FiniteAnimationSpec<IntOffset> =

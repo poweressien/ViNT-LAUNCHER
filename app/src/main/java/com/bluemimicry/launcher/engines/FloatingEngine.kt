@@ -69,8 +69,8 @@ fun FloatingEngine(vm: LauncherViewModel, modifier: Modifier = Modifier) {
         }
 
         val byKey = remember(list) { list.associateBy { it.key } }
-        bodies.forEach { b ->
-            val app = byKey[b.key] ?: return@forEach
+        for (b in bodies) {
+            val app = byKey[b.key] ?: continue
             key(b.key) {
                 AppTile(
                     app, vm, 54.dp, showLabel = false,

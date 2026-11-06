@@ -101,9 +101,9 @@ fun HostedWidgets(vm: LauncherViewModel, editing: Boolean, pageW: Float, pageH: 
     val ctx = LocalContext.current
     val pal = LocalPalette.current
     val density = LocalDensity.current
-    widgets.forEach { w ->
+    for (w in widgets) {
+        val info = controller.manager.getAppWidgetInfo(w.appWidgetId) ?: continue
         key(w.appWidgetId) {
-            val info = remember(w.appWidgetId) { controller.manager.getAppWidgetInfo(w.appWidgetId) } ?: return@key
             var drag by remember(w.x, w.y) { mutableStateOf(Offset.Zero) }
             val wDp = with(density) { (w.w * pageW).toDp() }; val hDp = with(density) { (w.h * pageH).toDp() }
             Box(
