@@ -17,7 +17,6 @@ jobs:
           java-version: 17
 
       # GitHub's ubuntu runners already ship the Android SDK (ANDROID_HOME is set).
-      # We only accept licenses and make sure the exact platform/build-tools we compile against exist.
       - name: Prepare Android SDK
         run: |
           SDKM="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
@@ -31,7 +30,18 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Assemble debug APK
-        run: ./gradlew :app:assembleDebug --stacktrace
+        run: |
+          set +e
+          ./gradlew :app:assembleDebug --console=plain --stacktrace > build.log 2>&1
+          code=$?
+          set -e
+          # Print only what matters: compiler errors (e: ...) and AAPT/KSP errors, so they fit in one copy-paste.
+          if [ $code -ne 0 ]; then
+            echo "=============== COMPILER ERRORS ==============="
+            grep -E "^e: |error: |AAPT: error|\[ksp\]" build.log | sed 's#file:///home/runner/work/[^/]*/[^/]*/##' | head -150
+            echo "=============== END ERRORS ==============="
+          fi
+          exit $code
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -39,9 +49,11 @@ jobs:
           name: BlueMimicryLauncher-debug
           path: app/build/outputs/apk/debug/*.apk
 
-      - name: Upload build reports on failure
+      - name: Upload full log on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: build-reports
-          path: app/build/reports/
+          name: build-log
+          path: |
+            build.log
+            app/build/reports/

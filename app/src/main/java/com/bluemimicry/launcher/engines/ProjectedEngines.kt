@@ -147,7 +147,7 @@ fun ProjectedEngine(mode: DisplayMode, vm: LauncherViewModel, modifier: Modifier
                         .offset { compute(i, apps.size, p); IntOffset((p.x - basePx / 2).roundToInt(), (p.y - basePx / 2).roundToInt()) }
                         .graphicsLayer {
                             scaleX = p.s; scaleY = p.s; alpha = p.a; rotationZ = p.rot
-                            if (mode == DisplayMode.HOLOGRAPHIC) { rotationX = (dragY * 0.03f).coerceIn(-18f, 18f); rotationY = (-dragX * 0.03f).coerceIn(-18f, 18f); cameraDistance = 14f * density.density }
+                            if (mode == DisplayMode.HOLOGRAPHIC) { rotationX = (dragY * 0.03f).coerceIn(-18f, 18f); rotationY = (-dragX * 0.03f).coerceIn(-18f, 18f); cameraDistance = 14f * this.density }
                         },
                 )
             }
